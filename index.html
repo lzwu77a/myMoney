@@ -75,11 +75,11 @@
             document.getElementById('loading-screen').style.display = 'flex';
 
             // 向 GAS 發送 action: 'loginAndGetSession' 來換取長效鑰匙
-            fetch(window.APP_CONFIG?.myAppData?.[webAppGas], {
+            fetch(window.APP_CONFIG?.webAppData?.[webAppGas], {
                 method: 'POST',
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify({ 
-                    myAppSID: window.APP_CONFIG?.myAppData?.["myApp_SID"],
+                    myAppSID: window.APP_CONFIG?.webAppData?.["myApp_SID"],
                     action: 'loginAndGetSession', 
                     token: googleToken 
                 })
@@ -105,11 +105,11 @@
 
         // 3. 負責向 GAS 拿 HTML 的核心邏輯 (使用長效鑰匙)
         function loadDashboard(sessionToken) {
-            fetch(window.APP_CONFIG?.myAppData?.[webAppGas], {
+            fetch(window.APP_CONFIG?.webAppData?.[webAppGas], {
                 method: 'POST',
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify({ 
-                    myAppSID: window.APP_CONFIG?.myAppData?.["myApp_SID"],
+                    myAppSID: window.APP_CONFIG?.webAppData?.["myApp_SID"],
                     action: 'getHtml', 
                     token: sessionToken 
                 })
@@ -167,7 +167,7 @@
         if (window.google && google.accounts && google.accounts.id) {
             google.accounts.id.initialize({
                 // 從路由器設定中抓取 clientId
-                client_id: window.APP_CONFIG?.myAppData?.clientId, 
+                client_id: window.APP_CONFIG?.webAppData?.clientId, 
                 callback: handleCredentialResponse, // 對應你原本的成功回呼函式
                 auto_prompt: false
             });
